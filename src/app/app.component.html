@@ -1,6 +1,7 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand mr-auto" href="#">Blockchain Polls</a>
-  <button type="button" class="btn btn-secondary">Create Poll</button>
+  <!-- create Poll button -->
+  <button type="button" class="btn btn-secondary" (click)="showForm = !showForm">Create Poll</button>
 </nav>
 
 <section class="jumpotron bg-light text-center">
@@ -8,7 +9,8 @@
   <p class="lead text-muted">Powered By Blockchain</p>
 </section>
 
-<app-poll-create></app-poll-create>
+<!-- Poll create form view -->
+<app-poll-create *ngIf="showForm"></app-poll-create>
 
 <div class="d-flex">
   <div class="container poll-list">List</div>
