@@ -13,8 +13,15 @@
 <app-poll-create *ngIf="showForm"></app-poll-create>
 
 <div class="d-flex">
+
+  <!-- poll list with images renders here -->
   <div class="container poll-list">
-    <app-poll></app-poll>
+    <!-- bind mock data which user will send from frontend into polls array in app.component.ts to the poll.component.html here -->
+    <app-poll *ngFor="let poll of polls" [question]="poll.question" [voted]="poll.voted" [votes]="poll.votes" [pollImage]="poll.image"></app-poll>
   </div>
-  <div class="container poll-detail">Detail</div>
+
+  <!-- poll details renders here -->
+  <div class="container poll-detail">
+    Detail
+  </div>
 </div>
