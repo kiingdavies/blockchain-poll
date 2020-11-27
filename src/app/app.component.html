@@ -17,11 +17,14 @@
   <!-- poll list with images renders here -->
   <div class="container poll-list">
     <!-- bind mock data which user will send from frontend into polls array in app.component.ts to the poll.component.html here -->
-    <app-poll *ngFor="let poll of polls" [question]="poll.question" [voted]="poll.voted" [votes]="poll.votes" [pollImage]="poll.image"></app-poll>
+    <app-poll *ngFor="let poll of polls" [question]="poll.question" [voted]="poll.voted" [votes]="poll.results"
+      [pollImage]="poll.thumbnail" (click)="setActivePoll(poll)"></app-poll>
   </div>
 
   <!-- poll details renders here -->
   <div class="container poll-detail">
-    <app-poll-vote></app-poll-vote>
+    <!-- set the binding from here to the variables in poll-vote.comonent.ts -->
+    <app-poll-vote *ngIf="activePoll" [voted]="activePoll.voted" [question]="activePoll.question" [options]="activePoll.options" [results]="activePoll.results">
+    </app-poll-vote>
   </div>
 </div>
