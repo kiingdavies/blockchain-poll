@@ -1,0 +1,12 @@
+<h3>Poll Question Title</h3>
+
+<form action="" [formGroup]="voteForm" (ngSubmit)="submitForm()">
+    <div class="form-check" *ngFor="let opt of options; let i = index">
+        <input type="radio" class="form-check-input" formControlName="selected" [value]="i" />
+        <!-- label renders the value of the selected option in opt -->
+        <label class="form-check-label">{{ opt }}</label>
+    </div>
+
+    <!-- [disabled]='!voteForm.valid makes sure user cant submit the form when no option is selected which means selected in poll-vote.component.ts is still empty -->
+    <button type="submit" class="btn btn-secondary mt-3" [disabled]="!voteForm.valid">Submit vote</button>
+</form>
