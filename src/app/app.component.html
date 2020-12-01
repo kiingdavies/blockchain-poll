@@ -1,7 +1,9 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand mr-auto" href="#">Blockchain Polls</a>
   <!-- create Poll button -->
-  <button type="button" class="btn btn-secondary" (click)="showForm = !showForm">Create Poll</button>
+  <button type="button" class="btn btn-primary" (click)="showForm = !showForm">
+    Create Poll
+  </button>
 </nav>
 
 <section class="jumpotron bg-light text-center">
@@ -10,21 +12,41 @@
 </section>
 
 <!-- Poll create form view -->
-<app-poll-create *ngIf="showForm"></app-poll-create>
+<!-- handlePollCreate($event) event handler listens for (pollCreated) @Output emit event in poll-create.component.ts & handles the event similar to listening for (click) event -->
+<app-poll-create
+  *ngIf="showForm"
+  (pollCreated)="handlePollCreate($event)"
+></app-poll-create>
 
 <div class="d-flex">
-
   <!-- poll list with images renders here -->
   <div class="container poll-list">
     <!-- bind mock data which user will send from frontend into polls array in app.component.ts to the poll.component.html here -->
-    <app-poll *ngFor="let poll of polls" [question]="poll.question" [voted]="poll.voted" [votes]="poll.results"
-      [pollImage]="poll.thumbnail" (click)="setActivePoll(poll)"></app-poll>
+    <!-- async pipe allows wait time for getPolls() to finish loading the data-->
+    <app-poll
+      *ngFor="let poll of polls | async"
+      [question]="poll.question"
+      [voted]="poll.voted"
+      [votes]="poll.results"
+      [pollImage]="poll.thumbnail"
+      (click)="setActivePoll(poll)"
+    ></app-poll>
   </div>
 
   <!-- poll details renders here -->
   <div class="container poll-detail">
     <!-- set the binding from here to the variables in poll-vote.comonent.ts -->
-    <app-poll-vote *ngIf="activePoll" [voted]="activePoll.voted" [question]="activePoll.question" [options]="activePoll.options" [results]="activePoll.results">
+    <!-- handlePollVote($event) event handler listens for (pollVoted) @Output emit event in poll-vote.component.ts & handles the event similar to listening for (click) event -->
+    <app-poll-vote
+      *ngIf="activePoll"
+      [id]="activePoll.id"
+      [voted]="activePoll.voted"
+      [question]="activePoll.question"
+      [options]="activePoll.options"
+      [results]="activePoll.results"
+      
+      (pollVoted)="handlePollVote($event)"
+    >
     </app-poll-vote>
   </div>
 </div>
